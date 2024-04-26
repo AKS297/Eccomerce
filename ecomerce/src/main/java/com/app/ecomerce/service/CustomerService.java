@@ -14,12 +14,16 @@ public class CustomerService {
     private CustomerRepository customerRepository;
    @Autowired
     private Customer customer;
+
+   @Autowired
+   private EncryptionService encryptionService;
+
     public Customer registerUser(RegistrationBody registrationBody){
         customer.setEmail(registrationBody.getEmail());
         customer.setUserName(registrationBody.getUserName());
         customer.setFirstName(registrationBody.getFirstName());
         customer.setLastName(registrationBody.getLastName());
-        customer.setPassword(registrationBody.getPassword());
+        customer.setPassword(encryptionService.encryptPassword(registrationBody.getPassword()));
 
 
         return customerRepository.save(customer);
