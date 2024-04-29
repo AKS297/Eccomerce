@@ -1,11 +1,14 @@
 package com.app.ecomerce.service;
 
+import com.app.ecomerce.api.model.LogInBody;
 import com.app.ecomerce.api.model.RegistrationBody;
 import com.app.ecomerce.model.Customer;
 import com.app.ecomerce.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -27,5 +30,10 @@ public class CustomerService {
 
 
         return customerRepository.save(customer);
+    }
+
+    public String logInUser(LogInBody logInBody){
+
+        return "";
     }
 }
