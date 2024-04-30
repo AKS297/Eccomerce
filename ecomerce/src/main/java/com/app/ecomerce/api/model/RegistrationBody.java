@@ -1,8 +1,22 @@
 package com.app.ecomerce.api.model;
 
+import jakarta.validation.constraints.*;
+
 public class RegistrationBody {
+   @NotNull
+   @NotBlank
+   @Max(255)
     private String userName;
+
+   @NotNull
+   @NotBlank
+    @Email
     private String email;
+
+    @NotNull
+    @NotBlank
+    @Min(6)
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$")
     private String password;
     private String firstName;
     private String lastName;

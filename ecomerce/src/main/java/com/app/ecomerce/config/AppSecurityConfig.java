@@ -9,17 +9,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
+
 public class AppSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        http.csrf().disable().cors().disable();
         http
-                .authorizeRequests()
+                .authorizeHttpRequests()
                 .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic(Customizer.withDefaults());
+                .permitAll();
+
         return http.build();
 
     }
