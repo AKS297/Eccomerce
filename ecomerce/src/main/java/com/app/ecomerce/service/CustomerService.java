@@ -18,8 +18,17 @@ public class CustomerService {
    @Autowired
     private Customer customer;
 
-   @Autowired
+    public CustomerService(CustomerRepository customerRepository, Customer customer, EncryptionService encryptionService, JWTauthenticationService jwTauthenticationService) {
+        this.customerRepository = customerRepository;
+        this.customer = customer;
+        this.encryptionService = encryptionService;
+        this.jwTauthenticationService = jwTauthenticationService;
+    }
+
+    @Autowired
    private EncryptionService encryptionService;
+
+   private JWTauthenticationService jwTauthenticationService;
 
     public Customer registerUser(RegistrationBody registrationBody){
         customer.setEmail(registrationBody.getEmail());
@@ -32,8 +41,14 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public String logInUser(LogInBody logInBody){
-
-        return "";
+    public String logInUser(LogInBody logInBody) {
+        Optional<Customer> checkUser = customerRepository.findByUserName(logInBody.getUserName());
+        if (checkUser.isPresent()) {
+            Customer customer1 = checkUser.get();
+            if (encryptionService.verifyPassword(logInBody.getPassword(), customer1.getPassword())) {
+                return jwTauthenticationService.generateJWTToken(customer1);
+            }
+        }
+        return null;
     }
 }

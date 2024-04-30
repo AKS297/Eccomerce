@@ -2,7 +2,7 @@ package com.app.ecomerce.api.model;
 
 public class LogInBody {
     private String userName;
-    private String passWord;
+    private String password;
 
     public String getUserName() {
         return userName;
@@ -12,11 +12,11 @@ public class LogInBody {
         this.userName = userName;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
     public void setPassWord(String passWord) {
-        this.passWord = passWord;
+        this.password = password;
     }
 }
