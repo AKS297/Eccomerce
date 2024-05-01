@@ -42,4 +42,9 @@ public class JWTauthenticationService {
                 .sign(algorithm);
 
     }
+
+    //this gets userName using the token generated
+    public String getUserName(String token){
+        return JWT.decode(token).getClaim(USERNAME_KEY).asString();
+    }
 }
