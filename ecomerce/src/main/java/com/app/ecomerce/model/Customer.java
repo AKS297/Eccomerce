@@ -1,5 +1,6 @@
 package com.app.ecomerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,7 @@ public class Customer {
     @Column(name = "user_name" ,nullable = false,unique = true)
     private String userName;
 
+    @JsonIgnore
     @Column(name = "password",nullable = false,length = 1000)
     private String password;
 
@@ -38,6 +40,7 @@ public class Customer {
         this.address = address;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "customer",cascade = CascadeType.REMOVE ,orphanRemoval = true)
     private List<Address> address;
 

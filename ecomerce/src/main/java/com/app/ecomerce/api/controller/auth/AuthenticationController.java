@@ -3,15 +3,15 @@ package com.app.ecomerce.api.controller.auth;
 import com.app.ecomerce.api.model.LogInBody;
 import com.app.ecomerce.api.model.LoginResponse;
 import com.app.ecomerce.api.model.RegistrationBody;
+import com.app.ecomerce.model.Customer;
 import com.app.ecomerce.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -40,6 +40,11 @@ public class AuthenticationController {
             response.setJwt(jwt);
             return ResponseEntity.ok(response);
         }
+    }
+
+    @GetMapping("/getUserDetails")
+    public Customer getCustomerDetails(@AuthenticationPrincipal Customer customer){
+        return  customer;
     }
 
 }
