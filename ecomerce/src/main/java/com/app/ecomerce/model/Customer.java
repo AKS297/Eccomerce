@@ -44,6 +44,13 @@ public class Customer {
     @OneToMany(mappedBy = "customer",cascade = CascadeType.REMOVE ,orphanRemoval = true)
     private List<Address> address;
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<VerificationToken> verificationTokens;
+
+    public List<VerificationToken> getVerificationTokens() {
+        return verificationTokens;
+    }
+
     public Long getId() {
         return id;
     }

@@ -27,6 +27,8 @@ public class JWTauthenticationService {
 
     private static final String USERNAME_KEY = "USERNAME";
 
+    private static final String EMAIL_KEY = "USEREMAIL";
+
     @PostConstruct
     public void postConstruct(){
         algorithm = Algorithm.HMAC256(algorythmkey);
@@ -41,6 +43,14 @@ public class JWTauthenticationService {
                 .withIssuer(tokenIssuer)
                 .sign(algorithm);
 
+    }
+
+    public String generateEmailToken(Customer customer){
+        return JWT
+                .create()
+                .withClaim(EMAIL_KEY,customer.getEmail())
+                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * expiryInSeconds)))
+                .sign(algorithm);
     }
 
     //this gets userName using the token generated
